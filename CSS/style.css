@@ -453,8 +453,23 @@ textarea {
 .navbar
 {
     position: sticky;
-background-color:var(--bg-block-100);
+    background-color:var(--bg-block-100);
+    padding-block: 2px;
+
  }
+ .logo span
+
+{
+    
+    font-size: 20px;
+    font-weight: 700;
+    
+}
+ .navbar-toggler
+{
+    font-size: 14px;
+    padding: 4px 8px;
+}
 .HomeSection , .Portfolio, .Services
  {
             height: auto;
@@ -463,6 +478,7 @@ background-color:var(--bg-block-100);
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding-block: 35px;
 
  }
  .HomeSection .image
@@ -527,8 +543,8 @@ background-color:var(--bg-block-100);
 }
 #scrollTopBtn {
     position: fixed;
-    bottom: 5%;
-    right: 5%;
+    bottom: 2%;
+    right: 2%;
     display: none;
     background: linear-gradient(90deg, #03a9f4, #f441a5);
     color: white;
