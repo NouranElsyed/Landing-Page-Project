@@ -1,7 +1,9 @@
 // Select the navigation container and all sections
-const navContainer = document.querySelector('.aside ul');
+const navContainer = document.querySelector('.navbar ul');
 const sections = document.querySelectorAll('.mainContent > div'); // Using .mainContent > div
 const scrollTopBtn = document.getElementById('scrollTopBtn');
+const navbar = document.querySelector('.navbar');
+let lastScrollY = window.scrollY;
 
 // Function to build the navigation dynamically with icons
 function buildNavigation() {
@@ -45,8 +47,8 @@ function buildNavigation() {
 
 // Function to highlight active section using Intersection Observer
 function highlightActiveSection() {
-    const navLinks = document.querySelectorAll('.aside ul li a'); // Define navigation links
-
+    const navLinks = document.querySelectorAll('.navbar ul li a'); // Define navigation links
+    
     sections.forEach(section => {
         const rect = section.getBoundingClientRect();
         const sectionName = section.getAttribute('id');
@@ -54,11 +56,22 @@ function highlightActiveSection() {
         if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
             // Remove active class from all links
             navLinks.forEach(link => link.classList.remove('active'));
-
+            sections.forEach(section => section.classList.remove('active'))
             // Add active class to the link corresponding to the section
             navLinks.forEach(link => {
                 if (link.getAttribute('href').includes(sectionName)) {
                     link.classList.add('active');
+                    section.classList.add('active','bg');
+                }
+            });
+         
+        }   else {
+            // Remove active state from link if section is out of view
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').includes(sectionName)) {
+                    link.classList.remove('active');        
+                    section.classList.remove('active','bg');
+                  
                 }
             });
         }
@@ -69,6 +82,26 @@ function highlightActiveSection() {
     } else {
         scrollTopBtn.style.display = 'none';
     }
+
+    
+    // Add a class when scrolling to change the styling
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+
+    // Show or hide the navbar based on the scroll direction
+    if (window.scrollY > lastScrollY) {
+        // Scrolling down: hide the navbar
+        navbar.classList.add('hidden');
+    } else {
+        // Scrolling up: show the navbar
+        navbar.classList.remove('hidden');
+    }
+
+    lastScrollY = window.scrollY;
+    
 }
 // Initialize the Typed.js library to create a typing animation for specific text elements
 var typed = new Typed(".typing", {
@@ -86,4 +119,3 @@ window.addEventListener('scroll', highlightActiveSection);
 scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-

@@ -3,8 +3,8 @@
     --bg-block-100: #fdf9ff;
     --skin-color: rgba(193, 10, 62, 0.987);
     --bg-card: rgb(65,62,105);
-    --nav--width-main: 250px;
-    --nav--width-secScreen: 120px;
+    --nav--width-main: 0;
+    --nav--width-secScreen: 0;
     --img-height: 300px;
 }
 
@@ -24,19 +24,22 @@
 }
 
 .mainContent {
-    width: calc(100% - var(--nav--width-main));
-    margin-left: auto;
+    width: 100%;
     height: 100vh;
     scroll-behavior: smooth;
 }
 .container
 {
-    width: 85%;
+    /* width: 90%; */
     margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 35px;
+
+}
+.bg
+{
+    background-color: #ece8ee;
 }
 #scrollTopBtn {
     position: fixed;
@@ -64,6 +67,7 @@ button {
   }
   
   .button-container {
+    width: fit-content;
     position: relative;
     padding: 3px;
     background: linear-gradient(90deg, #03a9f4, #f441a5);
@@ -92,24 +96,40 @@ button {
   }
 
 /* &--------------------------------------*/
-/**--------------> side NavBar -----------*/
-.aside {
-    background-color: var(--bg-block-100);
+/**-------------->  NavBar -----------*/
+
+.navbar {
+    background-color: transparent;
+    color: #f5f4fa;
     position: fixed;
-    width: var(--nav--width-main);
-    left: 0;
+    width: 100%;
+    padding-block: 15px;
+    transition: background-color 0.3s, top 0.3s;
     top: 0;
-    height: 100vh;
+    height: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     z-index: 10;
 }
+.navbar.scrolled {
+    background-color:var(--bg-block-100); 
+}
+.navbar.hidden {
+    top: -100px; 
+}
+.navbar ul
+{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
 
-ul li {
-    padding: 5px;
-    margin-block: 12px;
-    border-bottom: solid 1px #a8a8a872;
+ul li , a{
+    padding-inline: 10px;
+    text-decoration: none;
+
+
 }
 
 ul li a.active {
@@ -117,20 +137,33 @@ ul li a.active {
     font-weight: bold;
 }
 ul li a i{ 
-   margin-right: 8px;
-}
+   margin-right: 4px;
 
+}
+.logo span
+
+{
+    font-family: "Clicker Script", cursive;
+    color: var(--skin-color);
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 15px;
+}
+.list
+{
+    display: none;
+}
 
 /*?-- ==========> Home section and Image styling ------------ */
 
 
 .HomeSection .Info, .about {
-    width: 50%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin-left: 20px;
 }
  p , h3, h2
 {
@@ -144,7 +177,7 @@ ul li a i{
 
     font-size: 25px;
 }
-.HomeSection .Info h2 span,.HomeSection .Info h3 span .name
+.HomeSection .Info h2 span,.HomeSection .Info h3 span .name 
 {
     font-family: "Clicker Script", cursive;
     color: var(--skin-color);
@@ -157,10 +190,11 @@ ul li a i{
 
 .HomeSection .image
 {
-    width: 50%;
+   
     height: 100vh;
     display: flex;
-    justify-content: center;
+    margin-right: 10%;
+    justify-content: end;
     align-items: center;
  
 }
@@ -242,11 +276,11 @@ ul li a i{
 }
 .skills
 {
-    width: 50%;
-    height: 60vh;
+    /* height: 100vh; */
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content:center;
     flex-wrap: wrap;
    
 }
@@ -261,6 +295,7 @@ ul li a i{
 }
 
 /*?--------->Services& Portfolio<-----------*/
+
 .Portfolio, .Services
 {
     height: 100vh;
@@ -268,7 +303,11 @@ ul li a i{
     justify-content: center;
     align-items: center;
 }
-
+.ServicesSection ,.PortfolioSection  
+{
+    width: 85%;
+    margin: auto;
+}
 .column
 {
     display: flex;
@@ -351,8 +390,6 @@ ul li a i{
 	display: flex;
     justify-content: center;
     align-items: center;
-	background-color: white;
-	border-radius: 12px;
     height: 100vh;
 
 }
@@ -399,12 +436,13 @@ textarea {
 /**------------>mediaQuery-------------*/
 @media (max-width: 1000px) {
     .container
-{
-   
-    margin-block: 35px;
-    flex-direction: column;
-
-}
+    {
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        gap: 35px;
+    
+    }
 .mainContent
 {
     width: calc(100% - var(--nav--width-secScreen));
@@ -412,10 +450,14 @@ textarea {
     height: auto;
 
 }
- .HomeSection .Portfolio, .Services
+.navbar
+{
+    position: sticky;
+background-color:var(--bg-block-100);
+ }
+.HomeSection , .Portfolio, .Services
  {
             height: auto;
-            width: 90%;
             margin: auto;
             display: flex;
             flex-direction: column;
@@ -439,10 +481,7 @@ textarea {
     height: auto; 
     margin-block: 35px;
 }
-.aside 
-{
-            width: var(--nav--width-secScreen);
-}
+
 .about
 {
     margin-block: 35px;
@@ -477,10 +516,14 @@ textarea {
 .inner-container {
     width: auto;
     display: block;
-    margin: 30px auto;
+    margin: 30px auto 0 ;
 }
 .tile1 {
-    width: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 #scrollTopBtn {
     position: fixed;
