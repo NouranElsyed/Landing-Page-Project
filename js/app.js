@@ -8,7 +8,7 @@ let lastScrollY = window.scrollY;
 
 
 // Initialize the Typed.js library to create a typing animation for specific text elements
-var typed = new Typed(".typing", {
+const typed = new Typed(".typing", {
     strings: ["Web developer", "Web designer"],
     typeSpeed: 100,
     backSpeed: 60,
